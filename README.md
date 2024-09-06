@@ -44,10 +44,10 @@ To display the **First Names** of students with:
 Use the command:
 
 ```bash
-$ ./parseField students.csv -d MSc -g F -y 2024 -print -fn
+$ ./parseField student.csv -d MSc -g F -y 2024 -print -fn
 ```
 
-This command will search for students in the `students.csv` file where:
+This command will search for students in the `student.csv` file where:
 
 - The Degree is `MSc`
 - The Gender is `F`
@@ -96,5 +96,5 @@ The program performs the following validations:
    Example of running the program to filter students with `MSc` degree, `F` gender, and `2024` year, displaying their first names:
 
    ```bash
-   $ ./parseField students.csv -d MSc -g F -y 2024 -print -fn
+   $ ./parseField student.csv -d MSc -g F -y 2024 -print -fn
    ```
