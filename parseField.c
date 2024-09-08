@@ -52,7 +52,7 @@
  *
  * For the Example Discussed Above,
  * If User want to Display all First names where the Degree is MSc followed by Gender to be 'F' and the Year as 2024
- * For that, User have to Type: ./parseFields <your-csv-file> -d MSc -g F -y 2024 -print -fn
+ * For that, User have to Type: ./parseField <your-csv-file> -d MSc -g F -y 2024 -print -fn
  * */
 
 /* Global Declarations, So that these can be accessed throughout the Program, 
@@ -155,6 +155,7 @@ int checkForField(FILE * file, int pointer, int print)
 	}
 	word[i] = '\0';
 	fseek(file,-(length+1),SEEK_CUR);
+	
 	if(print == 1)
 		printf("%s\n",word);
 	else{
@@ -169,18 +170,26 @@ int checkForField(FILE * file, int pointer, int print)
 /* This Function moves the File Pointer to the Start of the Current Field */
 void takeToStart(FILE *file, int pointer)
 {
+	int index;
 	char ch;
-	while((ch=fgetc(file))!=delimitor[pointer-1])
+	if((pointer-1)<0)
+		index = 7-1;
+	else
+		index = pointer-1;
+	while((ch=fgetc(file))!=delimitor[index])
 		fseek(file,-2,SEEK_CUR);
 }
 
 
 /* This Function skips the current line by moving the File Pointer to the New Line in .csv File */
-void takeToNextLine(FILE *file)
+int takeToNextLine(FILE *file)
 {
         char ch;
-        while((ch=fgetc(file))!='\n' && ch!=EOF)
-	{}
+        while((ch=fgetc(file))!='\n')
+	{
+		if(ch==EOF)
+			return -1 ;
+	}
 }
 
 /* This Function is mainly dealing with the main purpose and whole algorithm to solve the Problem
@@ -216,6 +225,7 @@ void parseFile(FILE * file, int seq[], int k)
 				else{
 					i=0;
 					takeToNextLine(file);
+					fseek(file,-1,SEEK_CUR);
 					pointer=0;
 				}
 	
@@ -235,6 +245,7 @@ void parseFile(FILE * file, int seq[], int k)
                        		checkForField(file,pointer,1);
                                 i=0;
                                 takeToNextLine(file);
+				fseek(file,-1,SEEK_CUR);
                                 pointer=0;
 				getFlag = 0;
 
@@ -281,5 +292,3 @@ int main(int argc, char *argv[])
 	parseFile(file,seq,(argc-4)/2);
         fclose(file);
 }
-
-
