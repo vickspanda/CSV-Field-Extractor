@@ -1,8 +1,4 @@
-/*
- * NAME : VIKAS SHARMA
- * ROLL NO : 23112042
- *
- * Here is the Program to Display the Fields as per specified by the User along with conditions
+/* Here is the Program to Display the Fields as per specified by the User along with conditions
  * For Example: displaying all First names where the Degree is MSc followed by Gender to be 'F' and the Year as 2024
  * Then Program must check the details from .csv file provided, Firstly it must check if the row is of Degree MSc or Not, then Gender and so On
  * If All Conditions satisfied, then It must display the First Name of the Student */
