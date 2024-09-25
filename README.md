@@ -29,8 +29,7 @@ This program filters and displays data from a CSV file based on user-defined con
 ## Program Syntax
 
 ```bash
-$ gcc parseField.c -o parseField
-$ ./parseField <csv-file> <field1> <value1> <field2> <value2> ... -print <fieldx>
+$ ./extractField <csv-file> <field1> <value1> <field2> <value2> ... -print <fieldx>
 ```
 
 ### Example
@@ -44,7 +43,7 @@ To display the **First Names** of students with:
 Use the command:
 
 ```bash
-$ ./parseField student.csv -d MSc -g F -y 2024 -print -fn
+$ ./extractField student.csv -d MSc -g F -y 2024 -print -fn
 ```
 
 This command will search for students in the `student.csv` file where:
@@ -88,7 +87,7 @@ The program performs the following validations:
 1. **Compilation**: 
 
    ```bash
-   $ gcc parseField.c -o parseField
+   $ make
    ```
 
 2. **Execution**:
@@ -96,5 +95,5 @@ The program performs the following validations:
    Example of running the program to filter students with `MSc` degree, `F` gender, and `2024` year, displaying their first names:
 
    ```bash
-   $ ./parseField student.csv -d MSc -g F -y 2024 -print -fn
+   $ ./extractField student.csv -d MSc -g F -y 2024 -print -fn
    ```
