@@ -1,4 +1,8 @@
-/* Here is the Program to Display the Fields as per specified by the User along with conditions
+/*
+ * NAME : VIKAS SHARMA
+ * ROLL NO : 23112042
+ *
+ * Here is the Program to Display the Fields as per specified by the User along with conditions
  * For Example: displaying all First names where the Degree is MSc followed by Gender to be 'F' and the Year as 2024
  * Then Program must check the details from .csv file provided, Firstly it must check if the row is of Degree MSc or Not, then Gender and so On
  * If All Conditions satisfied, then It must display the First Name of the Student */
@@ -137,8 +141,11 @@ int checkForField(FILE * file, int pointer, int print)
 {
 	int length=0, i=0;
 	char ch;
-	while((ch=fgetc(file))!=delimitor[pointer])
+	while((ch=fgetc(file))!=delimitor[pointer]){
+		if(ch==EOF)
+			break;
 		length++;
+	}
 	
 	fseek(file,-(length+1),SEEK_CUR);
 
@@ -146,10 +153,13 @@ int checkForField(FILE * file, int pointer, int print)
 
 	while((ch=fgetc(file))!=delimitor[pointer])
 	{
+		if(ch==EOF)
+			break;
 		word[i] = ch;
 		i++;
 	}
 	word[i] = '\0';
+	
 	fseek(file,-(length+1),SEEK_CUR);
 	
 	if(print == 1)
@@ -157,8 +167,12 @@ int checkForField(FILE * file, int pointer, int print)
 	else{
 		if(strcmp(word,fields[pointer])==0)
 			return 1;
-		else
-			return 0;
+		else{
+			if(ch==EOF)
+				return -1;
+			else
+				return 0;
+		}
 	}
 }
 
@@ -180,12 +194,13 @@ void takeToStart(FILE *file, int pointer)
 /* This Function skips the current line by moving the File Pointer to the New Line in .csv File */
 int takeToNextLine(FILE *file)
 {
-        char ch;
+	char ch;
         while((ch=fgetc(file))!='\n')
 	{
 		if(ch==EOF)
-			return -1 ;
+			break;
 	}
+	return 1;
 }
 
 /* This Function is mainly dealing with the main purpose and whole algorithm to solve the Problem
@@ -209,7 +224,7 @@ void parseFile(FILE * file, int seq[], int k)
 		if(getFlag == 0){
 			if(pointer==seq[i])
 			{
-				if(checkForField(file,pointer,0))
+				if(checkForField(file,pointer,0)==1)
 				{
 					if(i==(k-1))
 					{
@@ -218,6 +233,8 @@ void parseFile(FILE * file, int seq[], int k)
 					else
 						i++;
 				}
+				else if(checkForField(file,pointer,0)==-1)
+					break;
 				else{
 					i=0;
 					takeToNextLine(file);
@@ -238,6 +255,8 @@ void parseFile(FILE * file, int seq[], int k)
 		else{
 			if(pointer==printField)
                 	{
+				if(printField==seq[i])
+					fseek(file,-1,SEEK_CUR);
                        		checkForField(file,pointer,1);
                                 i=0;
                                 takeToNextLine(file);
