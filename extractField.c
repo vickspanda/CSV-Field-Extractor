@@ -1,6 +1,4 @@
 /*
- * NAME : VIKAS SHARMA
- * ROLL NO : 23112042
  *
  * Here is the Program to Display the Fields as per specified by the User along with conditions
  * For Example: displaying all First names where the Degree is MSc followed by Gender to be 'F' and the Year as 2024
@@ -40,8 +38,8 @@
 
 
 /* Syntax For Using this Program, run following commands in terminal
- * $ gcc parseField.c -o parseField
- * $ ./parseField <your csv File> <field1> <value1> <field2> <value2> .. -print <fieldx>
+ * $ make
+ * $ ./extractField <your csv File> <field1> <value1> <field2> <value2> .. -print <fieldx>
  *
  * here second argument is name of your csv file
  * <field1>, <field2> and so on are the Keywords for the fields as defined above;
@@ -52,7 +50,7 @@
  *
  * For the Example Discussed Above,
  * If User want to Display all First names where the Degree is MSc followed by Gender to be 'F' and the Year as 2024
- * For that, User have to Type: ./parseField <your-csv-file> -d MSc -g F -y 2024 -print -fn
+ * For that, User have to Type: ./extractField <your-csv-file> -d MSc -g F -y 2024 -print -fn
  * */
 
 /* Global Declarations, So that these can be accessed throughout the Program, 
@@ -205,7 +203,7 @@ int takeToNextLine(FILE *file)
 
 /* This Function is mainly dealing with the main purpose and whole algorithm to solve the Problem
  * This Function is dealing with the Fields of a Single Line as per the matches Found in the Field */
-void parseFile(FILE * file, int seq[], int k)
+void extractFile(FILE * file, int seq[], int k)
 {
 	int pointer=0, i=0, getFlag=0;
 	char ch;
@@ -304,6 +302,6 @@ int main(int argc, char *argv[])
                 return 0;
         }
 
-	parseFile(file,seq,(argc-4)/2);
+	extractFile(file,seq,(argc-4)/2);
         fclose(file);
 }
