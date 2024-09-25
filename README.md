@@ -1,4 +1,4 @@
-# CSV Data Extractor
+# CSV Field Extractor
 
 ## Overview
 
